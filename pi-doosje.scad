@@ -12,22 +12,28 @@ module holes() {
     translate( [ 3.5 + 58, 3.5 + 49, 0 ] ) children();
 }
 
+rounding = 3;
+
 module inside() {
     offset( r = 0.5 ) {
-	square( [ 85, 56 ] );
-	// clearance for hdmi and audio
-	translate( [ 23, -3 ] )
-	    square( [ 85-23, 5 ] );
-	// clearance for usb
-	translate( [ 83, 21 ] )
-	    square( [ 5, 35 ] );
-	// clearance for sdcard
-	translate( [ -3, 0 ] ) 
-	    square( [ 5, 56 ] );
+        square( [ 85, 56 ] );
+        // clearance for hdmi and audio
+        offset( r = rounding ) offset( r = -rounding ) translate( [ 23, -3 ] )
+            square( [ 85-23, 25 ] );
+        translate( [ 23, -3 ] )
+            square( [ 65-23, 25 ] );
+        // clearance for usb
+        offset( r = rounding ) offset( r = -rounding ) translate( [ 63, 21 ] )
+            square( [ 25, 35 ] );
+        translate( [ 63, 21 ] )
+            square( [ 25, 30 ] );
+        // clearance for sdcard
+        offset( r = rounding ) offset( r = -rounding ) translate( [ -3, 0 ] ) 
+            square( [ 25, 56 ] );
     }
 }
 module outside() {
-    offset( r = 1 ) inside();
+    offset( r = 1.5 ) inside();
 }
 module rand() {
     difference() {
@@ -36,3 +42,5 @@ module rand() {
     }
 }
 
+rand();
+holes() circle( d = 2.5 );

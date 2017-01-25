@@ -3,14 +3,23 @@ $fn = 90;
 use <pi-doosje.scad>;
 
 module bottom() {
-    linear_extrude( height = 1 ) {
-	outside();
-    }
     linear_extrude( height = 1.5 ) {
-	difference() {
-	    inside();
-	    offset( r = -1 ) inside();
-	}
+        outside();
+    }
+    linear_extrude( height = 2.5 ) {
+        difference() {
+            inside();
+            offset( r = -2 ) inside();
+        }
+    }
+
+    #linear_extrude( height = 2.5 ) {
+        translate( [ -3, 3.5 - 1 ] ) square( [ 85 + 3, 2 ] );
+        translate( [ -3, 3.5 + 49 - 1 ] ) square( [ 85 + 6, 2 ] );
+        translate( [ -3, ( 3.5 - 1 + 3.5 + 49 - 1 ) / 2 ] ) square( [ 85 + 6, 2 ] );
+
+        translate( [ 3.5 - 1, 0 ] ) square( [ 2, 56 ] );
+        translate( [ 3.5 + 58 - 1, -3 ] ) square( [ 2, 56 ] );
     }
 
     linear_extrude( height = 5 ) {
@@ -49,12 +58,12 @@ difference() {
     bottom();
     union(){    
 	holes() cylinder( d = 2, h = 10 );
-	holes() cylinder( d1 = 5, d2 = 0, h = 2.5 );
+	holes() cylinder( d1 = 6, d2 = 0, h = 3 );
     }
 }
 
 
-%translate( [ 0, 0, 5 ] ) linear_extrude( height = BOARD_THICKNESS() ) {
+*%translate( [ 0, 0, 5 ] ) linear_extrude( height = BOARD_THICKNESS() ) {
     difference() {
 	pi();
 	holes() circle( d = 2.5 );
